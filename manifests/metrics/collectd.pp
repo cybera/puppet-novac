@@ -1,6 +1,6 @@
 class novac::metrics::collectd {
 
-  ensure_packages(['socat'])
+  ensure_packages(['socat'], { ensure => latest })
 
   # Import users' daily cloud usage
   cron { 'cloud user resource metrics':
