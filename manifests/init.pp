@@ -1,7 +1,7 @@
 class novac (
-  $ensure      = $::novac::params::branch,
-  $revision    = $::novac::params::revision,
-  $novac_users = [],
+  $ensure     = $::novac::params::ensure,
+  $branch     = $::novac::params::branch,
+  $sudo_users = [],
 ) inherits novac::params {
 
   Package<| tag == 'novac-packages' |> -> Package<| tag == 'novac-gems' |>
@@ -35,7 +35,7 @@ class novac (
     ensure   => $ensure,
     provider => git,
     source   => 'http://github.com/cybera/novac',
-    revision => $revision,
+    revision => $branch,
   }
 
   file { '/etc/sudoers.d/novac':
@@ -45,7 +45,7 @@ class novac (
     mode   => '0440',
   }
 
-  $novac_users.each |$user| {
+  $sudo_users.each |$user| {
     file_line { "/etc/sudoers.d/novac ${user}":
       path => '/etc/sudoers.d/novac',
       line => "${user} ALL = NOPASSWD: /root/novac/bin/novac"

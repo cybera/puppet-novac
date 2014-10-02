@@ -1,7 +1,7 @@
 class novac::params {
 
-  $ensure   = 'latest'
-  $revision = 'dev'
+  $ensure = 'latest'
+  $branch = 'master'
 
   case $lsbdistcodename {
     'precise': {

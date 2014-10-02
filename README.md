@@ -7,7 +7,7 @@ This is installs and configures Cybera's [novac](https://github.com/cybera/novac
 Make sure you have something like the following in Hiera:
 
 ```yaml
-novac::users:
+novac::sudo_users:
   - 'www-data'
 novac::config:
   openstack:
