@@ -16,6 +16,10 @@ novac::config:
     host: 'nova-hl.example.com'
     username: 'nova'
     password: 'password'
+    ssl: true
+    topic: 'nova'
+    queue: 'novac.info'
+    routing_key: 'notifications.*'
   mysql:honolulu:nova:
     host: 'nova-hl.example.com'
     database: 'nova'
