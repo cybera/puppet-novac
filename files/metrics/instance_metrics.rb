@@ -33,7 +33,7 @@ uuid_output.split("\n").each do |line|
   end
 
   # Get CPU usage
-  pid = %x{ pgrep -f #{instance} 2> /dev/null }.chomp
+  pid = %x{ pgrep -o -f #{instance} 2> /dev/null }.chomp
   if $? == 0
     cpu_command = "ps -p #{pid} -o %cpu h"
     cpu = %x{ #{cpu_command} 2> /dev/null }.gsub!(/\s+/, '')
