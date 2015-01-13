@@ -1,7 +1,7 @@
 class novac (
-  $ensure     = $::novac::params::ensure,
-  $branch     = $::novac::params::branch,
-  $sudo_users = [],
+  $ensure = $::novac::params::ensure,
+  $branch = $::novac::params::branch,
+  $config = {},
 ) inherits novac::params {
 
   Package<| tag == 'novac-packages' |> -> Package<| tag == 'novac-gems' |>
@@ -25,8 +25,8 @@ class novac (
 
   file { '/etc/novac/config.ini':
     ensure  => present,
-    owner   => $owner,
-    group   => $group,
+    owner   => 'root',
+    group   => 'root',
     mode    => '0640',
     require => File['/etc/novac'],
   }
@@ -38,25 +38,21 @@ class novac (
     revision => $branch,
   }
 
-  file { '/etc/sudoers.d/novac':
-    ensure => present,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0440',
-  }
-
-  $sudo_users.each |$user| {
-    file_line { "/etc/sudoers.d/novac ${user}":
-      path => '/etc/sudoers.d/novac',
-      line => "${user} ALL = NOPASSWD: /root/novac/bin/novac"
-    }
-  }
-
   file_line { '/root/.bashrc novac path':
     path => '/root/.bashrc',
     line => 'PATH=$PATH:/root/novac/bin',
   }
 
-  Ini_setting<<| tag == 'novac' |>>
+  $config.each |$database, $database_info| {
+    $database_info.each |$k, $v| {
+      ini_setting { "/etc/novac/config.ini ${database} ${k} = ${v}":
+        path    => '/etc/novac/config.ini',
+        section => $database,
+        setting => $k,
+        value   => $v,
+        require => File['/etc/novac/config.ini'],
+      }
+    }
+  }
 
 }
