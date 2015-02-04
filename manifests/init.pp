@@ -4,7 +4,7 @@ class novac (
   $config = {},
 ) inherits novac::params {
 
-  Package<| tag == 'novac-packages' |> -> Package<| tag == 'novac-gems' |>
+  Package<| tag == 'novac-packages' |> -> Package<| tag == 'novac-gems' |> -> Package<| tag == 'novac-pip' |>
 
   ensure_packages(
     $::novac::params::packages,
@@ -14,6 +14,11 @@ class novac (
   ensure_packages(
     $::novac::params::gems,
     { provider => 'gem', tag => 'novac-gems' }
+  )
+
+  ensure_packages(
+    $::novac::params::eggs,
+    { provider => 'pip', tag => 'novac-pip' }
   )
 
   file { '/etc/novac':
