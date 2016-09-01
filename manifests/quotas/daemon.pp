@@ -8,6 +8,15 @@ class novac::quotas::daemon {
     source => 'puppet:///modules/novac/nova-quotas',
   }
 
+  file { '/var/log/nova':
+    ensure => directory,
+  }
+
+  file { '/var/log/nova/quotas.log':
+    ensure  => present,
+    require => File['/var/log/nova'],
+  }
+
   service { 'nova-quotas':
     ensure     => running,
     enable     => true,

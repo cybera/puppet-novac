@@ -4,7 +4,8 @@ class novac::quotas::cron {
     command     => 'sleep 15; novac quota-sync',
     environment => 'PATH=/bin:/usr/bin:/sbin:/usr/sbin:/root/novac/bin',
     user        => 'root',
-    minute      => ['28','56'],
+    minute      => 12,
+    hour        => '*/2',
     require     => Class['novac'],
   }
 
@@ -12,7 +13,8 @@ class novac::quotas::cron {
     command     => 'novac quota-sync-usage',
     environment => 'PATH=/bin:/usr/bin:/sbin:/usr/sbin:/root/novac/bin',
     user        => 'root',
-    minute      => '*/6',
+    minute      => 32,
+    hour        => '*/3',
     require     => Class['novac'],
   }
 }

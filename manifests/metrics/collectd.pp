@@ -13,7 +13,7 @@ class novac::metrics::collectd {
 
   # instance metrics cron
   cron { 'cloud instance usage metrics':
-    command     => 'novac cloud-instance-metrics 2> /dev/null',
+    command     => 'novac cloud-instance-metrics-mysql 2> /dev/null',
     environment => 'PATH=/bin:/usr/bin:/sbin:/usr/sbin:/root/novac/bin',
     user        => 'root',
     minute      => '*/10',
