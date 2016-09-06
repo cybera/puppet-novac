@@ -5,13 +5,44 @@ class novac::params {
 
   case $lsbdistcodename {
     'precise': {
-      $gems = ['amqp', 'mysql2', 'terminal-table', 'eventmachine', 'json', 'sequel', 'inifile', 'parallel']
-      $packages = ['libmysqlclient-dev', 'build-essential', 'ruby-dev']
+      $gems = {
+        'amq-protocol'   => '1.9.2',
+        'amqp'           => '1.5.0',
+        'json'           => '1.8.1',
+        'mysql2'         => 'present',
+        'terminal-table' => 'present',
+        'eventmachine'   => 'present',
+        'sequel'         => 'present',
+        'inifile'        => 'present',
+        'parallel'       => 'present',
+      }
+
+      $packages = {
+        'libmysqlclient-dev' => 'present',
+        'build-essential'    => 'present',
+        'ruby-dev'           => 'present',
+      }
+
     }
 
     'trusty': {
-      $gems = ['amqp', 'terminal-table', 'eventmachine', 'json', 'sequel', 'inifile', 'parallel']
-      $packages = ['ruby-mysql2', 'ruby-dev', 'build-essential']
+      $gems = {
+        'amq-protocol'   => '1.9.2',
+        'amqp'           => '1.5.0',
+        'json'           => '1.8.1',
+        'mysql2'         => 'present',
+        'terminal-table' => 'present',
+        'eventmachine'   => 'present',
+        'sequel'         => 'present',
+        'inifile'        => 'present',
+        'parallel'       => 'present',
+      }
+
+      $packages = {
+        'libmysqlclient-dev' => 'present',
+        'build-essential'    => 'present',
+        'ruby-dev'           => 'present',
+      }
     }
   }
 

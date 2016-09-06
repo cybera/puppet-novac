@@ -6,15 +6,20 @@ class novac (
 
   Package<| tag == 'novac-packages' |> -> Package<| tag == 'novac-gems' |>
 
-  ensure_packages(
-    $::novac::params::packages,
-    { tag => 'novac-packages' }
-  )
+  $::novac::params::packages.each |$package, $version| {
+    package { $package:
+      ensure => $version,
+      tag    => 'novac-packages',
+    }
+  }
 
-  ensure_packages(
-    $::novac::params::gems,
-    { provider => 'gem', tag => 'novac-gems' }
-  )
+  $::novac::params::gems.each |$gem, $version| {
+    package { $gem:
+      ensure   => $version,
+      provider => 'gem',
+      tag      => 'novac-gems',
+    }
+  }
 
   file { '/etc/novac':
     ensure => directory,
