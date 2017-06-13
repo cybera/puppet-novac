@@ -32,15 +32,13 @@ uuid_output.split("\n").each do |line|
     output << "#{uuid} memory available:0 used:0"
   end
 
-  # Get CPU usage
-  pid = %x{ pgrep -o -f #{instance} 2> /dev/null }.chomp
+  # Get the CPU count
+  cpu_line = %x{ grep vcpu /etc/libvirt/qemu/#{instance}.xml }.chomp
+  cpu_count = 0
   if $? == 0
-    cpu_command = "ps -p #{pid} -o %cpu h"
-    cpu = %x{ #{cpu_command} 2> /dev/null }.gsub!(/\s+/, '')
-    output << "#{uuid} cpu cpu_usage:#{cpu.to_i} cpu_time:#{cpu_time}"
-  else
-    output << "#{uuid} cpu cpu_usage:0 cpu_time:0"
+    cpu_count = /<vcpu.*>(\d+)<\/vcpu>/.match(cpu_line)[1]
   end
+  output << "#{uuid} cpu cpu_count:#{cpu_count} cpu_time:#{cpu_time}"
 
   # Get interface usage
   iflist_output = %x{ virsh domiflist #{instance} | grep vnet | cut -d' ' -f1 2> /dev/null }.chomp
