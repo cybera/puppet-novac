@@ -18,11 +18,12 @@ class novac::quotas::daemon {
   }
 
   service { 'nova-quotas':
+    provider   => 'init',
     ensure     => running,
     enable     => true,
     hasstatus  => false,
     hasrestart => false,
-    status     => 'ps aux | grep quota-daemon | grep -v grep',
+    pattern    => '/root/novac/libexec/novac-quota-daemon',
     require    => File['/etc/init.d/nova-quotas'],
   }
 

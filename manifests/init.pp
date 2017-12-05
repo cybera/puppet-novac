@@ -39,7 +39,7 @@ class novac (
   vcsrepo { '/root/novac':
     ensure   => $ensure,
     provider => git,
-    source   => 'http://github.com/cybera/novac',
+    source   => 'https://github.com/cybera/novac',
     revision => $branch,
   }
 
@@ -52,8 +52,9 @@ class novac (
 
   $sudo_users.each |$user| {
     file_line { "/etc/sudoers.d/novac ${user}":
-      path => '/etc/sudoers.d/novac',
-      line => "${user} ALL = NOPASSWD: /root/novac/bin/novac"
+      path    => '/etc/sudoers.d/novac',
+      line    => "${user} ALL = NOPASSWD: /root/novac/bin/novac",
+      require => File['/etc/sudoers.d/novac'],
     }
   }
 
