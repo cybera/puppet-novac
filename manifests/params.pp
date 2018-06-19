@@ -15,6 +15,7 @@ class novac::params {
         'sequel'         => 'present',
         'inifile'        => 'present',
         'parallel'       => 'present',
+        'netaddr'        => 'present',
       }
 
       $packages = {
@@ -36,6 +37,7 @@ class novac::params {
         'sequel'         => 'present',
         'inifile'        => 'present',
         'parallel'       => 'present',
+        'netaddr'        => 'present',
       }
 
       $packages = {
