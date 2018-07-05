@@ -42,8 +42,8 @@ uuid_output.split("\n").each do |line|
     output << "#{uuid} cpu cpu_usage:0 cpu_time:0"
   end
 
-  # Get interface usage
-  iflist_output = %x{ virsh domiflist #{instance} | grep vnet | cut -d' ' -f1 2> /dev/null }.chomp
+  # Get first interface usage
+  iflist_output = %x{ virsh domiflist #{instance} | grep -m 1 tap | cut -d' ' -f1 2> /dev/null }.chomp
   if $? == 0
     ifstat_output = %x{ virsh domifstat #{instance} #{iflist_output} 2> /dev/null }
     if $? == 0
