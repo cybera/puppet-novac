@@ -23,6 +23,7 @@ class novac::params {
         'build-essential'    => 'present',
         'ruby-dev'           => 'present',
         'libssl-dev'         => 'latest',
+        'python-httplib2'    => 'present',
       }
     }
 
@@ -45,6 +46,7 @@ class novac::params {
         'build-essential'    => 'present',
         'ruby-dev'           => 'present',
         'libssl-dev'         => 'latest',
+        'python-httplib2'    => 'present',
       }
     }
   }
